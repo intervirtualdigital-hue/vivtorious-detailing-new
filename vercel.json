@@ -7,6 +7,9 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/admin", "destination": "https://vivtorious-detailing-new-production.up.railway.app/admin" },
+    { "source": "/admin/:path*", "destination": "https://vivtorious-detailing-new-production.up.railway.app/admin/:path*" },
+    { "source": "/api/:path*", "destination": "https://vivtorious-detailing-new-production.up.railway.app/api/:path*" },
     { "source": "/pricing", "destination": "/pricing.html" },
     { "source": "/packages", "destination": "/packages.html" },
     { "source": "/booking", "destination": "/booking.html" },
