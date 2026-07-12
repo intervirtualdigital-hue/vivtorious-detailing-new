@@ -1,0 +1,31 @@
+{
+  "name": "victorious-detailing",
+  "version": "2.0.0",
+  "description": "Victorious Mobile Detailing - quiz funnel, SEO city pages, and admin dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "migrate": "node -e \"require('./lib/db')\" && echo 'Migration applied (schema is also auto-applied on every server start via lib/db.js).'",
+    "seed": "node db/seed.js",
+    "hash-password": "node db/hash-password.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "better-sqlite3": "^11.3.0",
+    "compression": "^1.7.4",
+    "connect-sqlite3": "^0.9.15",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.18.2",
+    "express-session": "^1.18.0",
+    "helmet": "^7.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commercial &amp; Fleet Detailing | Victorious Mobile Detailing</title>
+    <meta name="description" content="Mobile detailing for commercial fleets across the NY metro. Vans, box trucks, multi-vehicle accounts. Tell us about your fleet and we'll send a custom quote.">
+    <link rel="canonical" href="https://victoriousdetailing.com/commercial-contact">
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>body { margin: 0; background: #0E0A14; font-family: 'Montserrat', sans-serif; color: #F4F1FA; }</style>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/css/victorious-ext.css">
+
+    <script src="/js/tracking.js"></script>
+    <script src="/js/cookie-banner.js" defer></script>
+    <meta name="theme-color" content="#0E0A14">
+</head>
+<body>
+    <header class="header">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+            <a href="/" style="display: inline-flex; align-items: center; gap: 0.75rem;">
+                <img src="/images/logo.png" alt="Victorious Mobile Detailing" style="height: 56px; width: auto;">
+                <span class="brand-wordmark" style="font-family: 'Cinzel', serif; font-weight: 600; font-size: 16px; color: #F4F1FA;">VICTORIOUS<br><span style="color: #D4AF37; font-size: 12px;">DETAILING</span></span>
+            </a>
+            <nav class="nav"><a href="/">Home</a><a href="/booking" class="btn btn-ghost-gold" style="padding: 0.5rem 1rem; font-size: 14px;">Book</a></nav>
+        </div>
+    </header>
+
+    <main class="content fade-in">
+        <div class="container container-sm" style="padding-top: 3rem;">
+            <div class="text-center" style="margin-bottom: 2rem;">
+                <p class="question-counter">Commercial &amp; Fleet</p>
+                <h1>Fleet &amp; Commercial Inquiries</h1>
+                <p style="color: rgba(244, 241, 250, 0.75); margin: 1.5rem auto; max-width: 580px;">
+                    Vans, box trucks, dealer lots, multi-vehicle accounts. Drop your details below and we'll come back with a custom quote within one business day.
+                </p>
+            </div>
+
+            <div class="pricing-container">
+                <form id="commercialForm" action="mailto:hello@victoriousdetailing.com" method="post" enctype="text/plain" style="text-align: left;">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group" style="margin-top: 1.25rem;">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group" style="margin-top: 1.25rem;">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group" style="margin-top: 1.25rem;">
+                        <label for="vehicleType">Type of Commercial Vehicle *</label>
+                        <input type="text" id="vehicleType" name="vehicleType" required placeholder="e.g., Van, Box Truck, Fleet Vehicle">
+                    </div>
+                    <div class="form-group" style="margin-top: 1.25rem;">
+                        <label for="address">Service Address *</label>
+                        <input type="text" id="address" name="address" required placeholder="Where should we come?">
+                    </div>
+                    <div class="form-group" style="margin-top: 1.25rem;">
+                        <label for="details">Additional Details (Optional)</label>
+                        <textarea id="details" name="details" rows="4" placeholder="Number of vehicles, frequency, anything else we should know..."></textarea>
+                    </div>
+
+                    <div style="margin-top: 2rem; text-align: center;">
+                        <button type="submit" class="btn btn-primary cta-btn" id="submitBtn">Submit Request</button>
+                        <p style="margin-top: 1rem; color: rgba(244, 241, 250, 0.55); font-size: 13px;">Or text us directly at <a href="sms:+16463713739" style="color: #D4AF37;">(646) 371-3739</a>.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div class="progress-bar"><div class="progress-fill" style="width: 66.66%;"></div></div>
+
+    <footer class="footer">
+        <p>
+            &copy; 2026 Victorious Mobile Detailing. All rights reserved. | NY Metro Area<br>
+            <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('commercialForm');
+            const submitBtn = document.getElementById('submitBtn');
+            form.addEventListener('submit', function() {
+                submitBtn.textContent = 'Submitting...';
+                submitBtn.disabled = true;
+            });
+        });
+        window.addEventListener('load', () => { window.scrollTo(0, 0); });
+    </script>
+
+    <style>
+        label { color: rgba(244, 241, 250, 0.85); font-size: 14px; font-weight: 600; display: block; margin-bottom: 0.4rem; }
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            background: rgba(75, 29, 125, 0.18);
+            color: #F4F1FA;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.18);
+        }
+        ::placeholder { color: rgba(244, 241, 250, 0.4); }
+    </style>
+</body>
+</html>

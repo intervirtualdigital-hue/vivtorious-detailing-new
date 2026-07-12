@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Overview | Victorious Mobile Detailing</title>
+    <meta name="description" content="What this site includes, what's live now in the V1 mockup, and what's wired up under the hood for the full system rollout.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: #0E0A14;
+            color: #F4F1FA;
+            line-height: 1.6;
+            background-image:
+                radial-gradient(900px 500px at 80% -10%, rgba(75, 29, 125, 0.35), transparent 60%),
+                radial-gradient(700px 420px at -10% 110%, rgba(212, 175, 55, 0.08), transparent 60%);
+            background-attachment: fixed;
+        }
+        .wrap { max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+        .topbrand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .topbrand img { height: 64px; width: auto; }
+        .topbrand .wordmark {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: 0.04em;
+            line-height: 1.2;
+        }
+        .topbrand .wordmark span { color: #D4AF37; font-size: 13px; }
+
+        .pre-title { color: #D4AF37; font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; margin: 0 0 0.5rem; }
+        h1 { font-family: 'Cinzel', serif; font-size: clamp(28px, 5vw, 42px); font-weight: 700; margin: 0 0 0.5rem; }
+        h2 { font-family: 'Cinzel', serif; font-size: 22px; color: #D4AF37; margin: 2.5rem 0 0.75rem; }
+        h3 { font-size: 17px; color: #F4F1FA; margin: 1.5rem 0 0.5rem; }
+        p { font-size: 15.5px; color: rgba(244, 241, 250, 0.85); margin: 0 0 1rem; }
+        ul { color: rgba(244, 241, 250, 0.85); padding-left: 1.5rem; margin: 0 0 1rem; }
+        ul li { margin-bottom: 0.4rem; }
+        code, .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; background: rgba(75, 29, 125, 0.3); border: 1px solid rgba(212, 175, 55, 0.18); border-radius: 5px; padding: 0.05rem 0.4rem; font-size: 13.5px; color: #F0C955; }
+        a { color: #D4AF37; }
+
+        .lede {
+            background: linear-gradient(155deg, rgba(75, 29, 125, 0.35), rgba(27, 18, 38, 0.7));
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-left: 4px solid #D4AF37;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin: 1rem 0 2rem;
+        }
+        .lede p:last-child { margin-bottom: 0; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 2rem;
+        }
+        .card {
+            background: linear-gradient(155deg, rgba(75, 29, 125, 0.22), rgba(27, 18, 38, 0.6));
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            border-radius: 12px;
+            padding: 1.25rem 1.25rem 1rem;
+        }
+        .card h3 { margin-top: 0; color: #D4AF37; font-family: 'Cinzel', serif; font-size: 16px; letter-spacing: 0.03em; }
+        .card p { margin-bottom: 0; font-size: 14.5px; }
+        .pill { display: inline-block; padding: 0.18rem 0.6rem; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-left: 0.5rem; vertical-align: middle; }
+        .pill-live { background: rgba(31, 111, 74, 0.25); color: #6BD9A2; border: 1px solid rgba(107, 217, 162, 0.4); }
+        .pill-dormant { background: rgba(155, 27, 48, 0.18); color: #E8B4BD; border: 1px solid rgba(232, 180, 189, 0.35); }
+        .pill-soon { background: rgba(212, 175, 55, 0.15); color: #F0C955; border: 1px solid rgba(212, 175, 55, 0.45); }
+
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0 2rem; font-size: 14.5px; }
+        thead th { text-align: left; padding: 0.75rem 0.85rem; background: rgba(75, 29, 125, 0.35); color: #D4AF37; font-family: 'Cinzel', serif; letter-spacing: 0.04em; border-bottom: 1px solid rgba(212, 175, 55, 0.3); }
+        tbody td { padding: 0.7rem 0.85rem; border-bottom: 1px solid rgba(212, 175, 55, 0.12); vertical-align: top; color: rgba(244, 241, 250, 0.88); }
+        tbody tr:hover td { background: rgba(212, 175, 55, 0.04); }
+
+        .footnote { font-size: 13px; color: rgba(244, 241, 250, 0.55); margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.18); font-family: 'Cinzel', serif; letter-spacing: 0.06em; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+
+        <header class="topbrand">
+            <img src="/images/logo.png" alt="Victorious Mobile Detailing">
+            <div class="wordmark">VICTORIOUS<br><span>DETAILING — SYSTEM OVERVIEW</span></div>
+        </header>
+
+        <p class="pre-title">V1 Mockup &middot; Static Vercel Deploy</p>
+        <h1>What this website includes</h1>
+
+        <div class="lede">
+            <p>This document is a behind-the-scenes summary of the Victorious Mobile Detailing site. It explains what's live in the V1 mockup, what's already wired up in code (waiting on a backend), what gets tracked, and what's planned next.</p>
+            <p>The V1 you're looking at is a <strong>static Vercel deploy</strong> &mdash; a polished visual mockup so you can see the finished feel of the site. The packages, prices, photos, and live admin tools are placeholders or dormant; we'll fill them in once the brand-side details are finalized.</p>
+        </div>
+
+        <h2>Public pages (live in V1)</h2>
+        <div class="grid">
+            <div class="card"><h3>Home <span class="pill pill-live">live</span></h3><p>Hero with a vehicle-type quiz, four service pillars, "How It Works" 4-step, service-area card, three real customer photos, FAQ, and a "Text us / DM us" final CTA.</p></div>
+            <div class="card"><h3>Packages <span class="pill pill-live">live</span></h3><p>Four package tiers (Mini, Premium, Clay &amp; Ceramic, VIP) as visual placeholders. Per-vehicle pricing tags say "Pricing soon."</p></div>
+            <div class="card"><h3>Pricing <span class="pill pill-live">live</span></h3><p>Reads the user's quiz selection from <span class="mono">localStorage</span> and shows a "Royal-Treatment Pricing &mdash; coming soon" message with a text/DM CTA.</p></div>
+            <div class="card"><h3>Booking <span class="pill pill-live">live</span></h3><p>Two big CTAs &mdash; <span class="mono">sms:+16463713739</span> and <span class="mono">https://instagram.com/victoriousdetailing1</span>. The legacy GHL calendar slot is removed for V1.</p></div>
+            <div class="card"><h3>Thank-you <span class="pill pill-live">live</span></h3><p>Confirmation page, "we'll text within the hour," next-step bullets, return CTA.</p></div>
+            <div class="card"><h3>Commercial &amp; Fleet <span class="pill pill-live">live</span></h3><p>Inquiry form for vans / box trucks / multi-vehicle accounts. Submits via <span class="mono">mailto:hello@victoriousdetailing.com</span> in V1.</p></div>
+            <div class="card"><h3>Privacy &amp; Terms <span class="pill pill-live">live</span></h3><p>Standard policy pages, fully rebranded. Update any business address before public launch.</p></div>
+            <div class="card"><h3>Update / Comms <span class="pill pill-live">live</span></h3><p>Bilingual update page used for "what's new" announcements to past customers.</p></div>
+        </div>
+
+        <h2>Quiz funnel flow</h2>
+        <p>The user journey was preserved from the source funnel and rebranded for Victorious:</p>
+        <ol style="color: rgba(244, 241, 250, 0.85); padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Homepage</strong> &mdash; user picks vehicle type (Coupe / Medium SUV / Large SUV-Truck / Lifted Truck). Saved to <span class="mono">localStorage.victoriousQuiz</span>.</li>
+            <li><strong>Packages</strong> &mdash; chooses a tier. (V1 is informational; pricing locks in later.)</li>
+            <li><strong>Pricing</strong> &mdash; shows their selection summary; redirects to text/DM CTA.</li>
+            <li><strong>Booking</strong> &mdash; user texts (646) 371-3739 or DMs <a href="https://www.instagram.com/victoriousdetailing1" target="_blank" rel="noopener">@victoriousdetailing1</a>.</li>
+            <li><strong>Thank-you</strong> &mdash; confirmation, next-step expectations, "back to home."</li>
+        </ol>
+
+        <h2>Admin dashboard <span class="pill pill-dormant">dormant in V1</span></h2>
+        <p>The original platform shipped with a full Express + SQLite admin. The code is preserved in <span class="mono">server.js</span> and <span class="mono">views/admin/*.ejs</span> so it can be turned on later by deploying to Railway or migrating SQLite to Postgres on Vercel. Today's static deploy doesn't run it.</p>
+
+        <table>
+            <thead><tr><th>Route</th><th>What it does</th></tr></thead>
+            <tbody>
+                <tr><td><span class="mono">/admin/login</span></td><td>Bcrypt-hashed admin password. Per-IP rate limit (5 attempts / 15 min).</td></tr>
+                <tr><td><span class="mono">/admin</span></td><td>Overview cards: unique sessions, quiz starts, package selects, bookings &mdash; with 1d / 7d / 30d breakdowns and a 30-day visit sparkline.</td></tr>
+                <tr><td><span class="mono">/admin/funnel</span></td><td>5-step funnel chart with drop-off rates: <em>page_view &rarr; vehicle_select &rarr; package_select &rarr; booking_widget_loaded &rarr; booking_complete</em>.</td></tr>
+                <tr><td><span class="mono">/admin/events</span></td><td>Raw event log with type filter chips. Type counts. CSV export at <span class="mono">/admin/events.csv</span>.</td></tr>
+                <tr><td><span class="mono">/admin/pricing</span></td><td>Live pricing matrix (4 packages &times; 4 vehicle types = 16 cells). Edit-in-place. Full audit history (old/new prices, who, when).</td></tr>
+                <tr><td><span class="mono">/admin/cities</span></td><td>SEO city-page CMS &mdash; toggle active, edit meta title/description, H1, intro copy, why-choose copy. Pages render at <span class="mono">/detailing/:slug</span>.</td></tr>
+            </tbody>
+        </table>
+
+        <h2>What gets tracked</h2>
+        <p>Every page loads the first-party tracker at <span class="mono">/js/tracking.js</span> which auto-fires <span class="mono">page_view</span>. The vehicle-card click fires <span class="mono">vehicle_select</span>. Cookie-banner consent fires <span class="mono">cookie_consent</span>. The thank-you page fires <span class="mono">booking_complete</span> with vehicle/package/price props.</p>
+
+        <p>The endpoint on the backend (when on) is <span class="mono">POST /api/event</span>, which inserts into a SQLite <span class="mono">events</span> table with the following fields:</p>
+        <ul>
+            <li><strong>Event identity</strong>: <span class="mono">type</span>, <span class="mono">page</span>, <span class="mono">ts</span>, <span class="mono">session_id</span> (UUID stored in <span class="mono">localStorage</span>)</li>
+            <li><strong>Quiz context</strong>: <span class="mono">vehicle_type</span>, <span class="mono">package_name</span>, <span class="mono">price_total</span>, <span class="mono">city</span></li>
+            <li><strong>Marketing attribution</strong>: <span class="mono">utm_source</span>, <span class="mono">utm_medium</span>, <span class="mono">utm_campaign</span>, <span class="mono">utm_content</span>, <span class="mono">utm_term</span> (auto-captured from URL, persisted across pages)</li>
+            <li><strong>Session metadata</strong>: <span class="mono">ip_hash</span> (SHA-256 + secret salt &mdash; never raw IPs), <span class="mono">user_agent</span>, <span class="mono">referrer</span>, <span class="mono">consent</span> (accept/reject/unset)</li>
+        </ul>
+        <p>Per-IP rate limit: 120 events/min. CSV export of last 50,000 events available from <span class="mono">/admin/events.csv</span>.</p>
+
+        <h2>Tech stack</h2>
+        <div class="grid">
+            <div class="card"><h3>Front-end <span class="pill pill-live">live</span></h3><p>Plain HTML, CSS, and vanilla JS &mdash; no framework. Cinzel + Montserrat fonts. Mobile-first, responsive, lazy-loaded gallery images.</p></div>
+            <div class="card"><h3>Hosting <span class="pill pill-live">live</span></h3><p>Vercel static deploy (Edge CDN). Custom rewrites for clean URLs in <span class="mono">vercel.json</span>. <span class="mono">.vercelignore</span> excludes the Express server code from the build.</p></div>
+            <div class="card"><h3>Backend <span class="pill pill-dormant">dormant</span></h3><p>Express + EJS + better-sqlite3 + helmet + compression + sessions. Preserved in <span class="mono">server.js</span> for a later Railway / Postgres-on-Vercel deploy.</p></div>
+            <div class="card"><h3>SEO <span class="pill pill-live">live</span></h3><p>LocalBusiness JSON-LD schema, OG and Twitter cards, canonical URLs, per-page meta. Sitemap and robots.txt available once the backend is live.</p></div>
+            <div class="card"><h3>Privacy <span class="pill pill-live">live</span></h3><p>Cookie consent banner (accept / reject) writing to <span class="mono">localStorage.victorious_consent</span>. Privacy + Terms pages.</p></div>
+            <div class="card"><h3>Pixel <span class="pill pill-soon">placeholder</span></h3><p>Meta Pixel block is commented out. Drop in your pixel ID and uncomment to start collecting Meta conversions.</p></div>
+        </div>
+
+        <h2>Static V1 vs full system</h2>
+        <table>
+            <thead><tr><th>Capability</th><th>Live in V1</th><th>Wired up but dormant</th></tr></thead>
+            <tbody>
+                <tr><td>Homepage + sub-pages, full Victorious branding</td><td>Yes</td><td>&mdash;</td></tr>
+                <tr><td>Vehicle-select quiz UI</td><td>Yes</td><td>&mdash;</td></tr>
+                <tr><td>Cookie consent banner</td><td>Yes (writes to localStorage)</td><td>&mdash;</td></tr>
+                <tr><td>UTM capture across the funnel</td><td>Yes (localStorage)</td><td>&mdash;</td></tr>
+                <tr><td>First-party event tracking (<span class="mono">/api/event</span>)</td><td>No (no backend)</td><td>Yes &mdash; ready for Railway/Postgres</td></tr>
+                <tr><td>Admin dashboard (overview, funnel, events, CSV)</td><td>No</td><td>Yes &mdash; bcrypt + rate limit + sessions</td></tr>
+                <tr><td>Pricing CMS w/ change history</td><td>No</td><td>Yes &mdash; <span class="mono">/admin/pricing</span> + audit log</td></tr>
+                <tr><td>SEO city landing pages CMS</td><td>No</td><td>Yes &mdash; 6 NY-metro placeholder pages seeded</td></tr>
+                <tr><td>GHL / online calendar booking</td><td>No (text + DM CTA only)</td><td>Will replace V1 booking page once GHL is supplied</td></tr>
+                <tr><td>Meta Pixel</td><td>No (commented out)</td><td>One-line uncomment + pixel ID</td></tr>
+            </tbody>
+        </table>
+
+        <h2>What's planned next</h2>
+        <ul>
+            <li>Drop in real package details and final pricing for Mini / Premium / Clay &amp; Ceramic / VIP, by vehicle size.</li>
+            <li>Replace placeholder gallery captions with real client testimonials and additional before/after photos.</li>
+            <li>Wire up the GoHighLevel booking widget (or successor) on <span class="mono">/booking</span>.</li>
+            <li>Add the Meta Pixel ID + verify Schedule conversion firing.</li>
+            <li>Stand up the Express backend on Railway (or migrate to Postgres-on-Vercel) to switch on the admin and live tracking.</li>
+            <li>Connect the custom domain <span class="mono">victoriousdetailing.com</span> with proper DNS.</li>
+        </ul>
+
+        <h2>Where things live</h2>
+        <ul>
+            <li><span class="mono">/index.html</span>, <span class="mono">/packages.html</span>, <span class="mono">/pricing.html</span>, <span class="mono">/booking.html</span>, <span class="mono">/thankyou.html</span> &mdash; the public funnel</li>
+            <li><span class="mono">/styles.css</span>, <span class="mono">/public/css/victorious-ext.css</span> &mdash; royal-purple + gold design system</li>
+            <li><span class="mono">/public/js/tracking.js</span>, <span class="mono">/public/js/cookie-banner.js</span> &mdash; first-party analytics + consent</li>
+            <li><span class="mono">/server.js</span>, <span class="mono">/lib/db.js</span>, <span class="mono">/db/migrate.sql</span>, <span class="mono">/db/seed.js</span> &mdash; dormant Express backend (kept for later activation)</li>
+            <li><span class="mono">/views/admin/*.ejs</span> &mdash; dormant admin dashboard templates</li>
+            <li><span class="mono">/images/logo.png</span>, <span class="mono">/images/gallery/*</span> &mdash; brand and customer photos</li>
+            <li><span class="mono">/vercel.json</span>, <span class="mono">/.vercelignore</span> &mdash; static deploy configuration</li>
+        </ul>
+
+        <p class="footnote">YOU'RE IN THE HANDS OF VICTORS</p>
+    </div>
+</body>
+</html>

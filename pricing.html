@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | Victorious Mobile Detailing</title>
+    <meta name="description" content="Mobile detailing pricing for Victorious Mobile Detailing. Per-vehicle pricing menu launching soon &mdash; DM or text us for a current quote.">
+    <link rel="canonical" href="https://victoriousdetailing.com/pricing">
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { margin: 0; background: #0E0A14; font-family: 'Montserrat', sans-serif; color: #F4F1FA; }
+    </style>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/css/victorious-ext.css">
+
+    <script src="/js/tracking.js"></script>
+    <script src="/js/cookie-banner.js" defer></script>
+    <meta name="theme-color" content="#0E0A14">
+</head>
+<body>
+    <header class="header">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+            <a href="/" style="display: inline-flex; align-items: center; gap: 0.75rem;">
+                <img src="/images/logo.png" alt="Victorious Mobile Detailing" style="height: 56px; width: auto;">
+                <span class="brand-wordmark" style="font-family: 'Cinzel', serif; font-weight: 600; font-size: 16px; color: #F4F1FA;">VICTORIOUS<br><span style="color: #D4AF37; font-size: 12px;">DETAILING</span></span>
+            </a>
+            <nav class="nav"><a href="/">Home</a><a href="/booking" class="btn btn-ghost-gold" style="padding: 0.5rem 1rem; font-size: 14px;">Book</a></nav>
+        </div>
+    </header>
+
+    <main class="content fade-in">
+        <div class="container container-sm text-center" style="padding-top: 3rem;">
+            <p class="question-counter">Pricing</p>
+            <h1>Royal-Treatment Pricing</h1>
+            <p style="color: rgba(244, 241, 250, 0.75); margin: 1rem auto 2.5rem; max-width: 560px;">
+                We're finalizing our published pricing menu. In the meantime, every quote is built around your specific vehicle and condition, so you only pay for what you need.
+            </p>
+
+            <div class="pricing-container" style="text-align: left;">
+                <h2 id="vehicleTitle" style="text-align: center; color: #D4AF37; font-size: 24px;">Your Quote &mdash; Coming Soon</h2>
+                <p id="vehicleSummary" style="text-align: center; color: rgba(244, 241, 250, 0.65); margin-bottom: 1.5rem;">Pick your vehicle from the homepage to start.</p>
+
+                <div class="placeholder-tile" style="margin: 1.5rem 0;">
+                    Per-Vehicle Pricing
+                    <span>Menu launching soon</span>
+                </div>
+
+                <p style="color: rgba(244, 241, 250, 0.7); font-size: 14px; text-align: center; margin: 1.5rem 0;">
+                    Want a same-day quote? Text us with a few photos of your car and we'll send pricing back within the hour.
+                </p>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 1.5rem;">
+                    <a href="sms:+16463713739" class="btn btn-primary cta-btn">📱 TEXT (646) 371-3739</a>
+                    <a href="https://www.instagram.com/victoriousdetailing1" target="_blank" rel="noopener" class="btn btn-ghost-gold">📸 DM @victoriousdetailing1</a>
+                </div>
+
+                <div style="margin-top: 1.5rem; text-align: center;">
+                    <a href="/" style="color: rgba(244, 241, 250, 0.5); font-size: 14px; text-decoration: none;">&larr; Change vehicle</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="progress-bar"><div class="progress-fill" style="width: 66%;"></div></div>
+
+    <footer class="footer">
+        <p>
+            &copy; 2026 Victorious Mobile Detailing. All rights reserved. | NY Metro Area<br>
+            <a href="https://www.instagram.com/victoriousdetailing1" target="_blank" rel="noopener">Instagram</a> |
+            <a href="sms:+16463713739">Text (646) 371-3739</a> |
+            <a href="/privacy">Privacy</a> |
+            <a href="/terms">Terms</a>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const raw = localStorage.getItem('victoriousQuiz');
+                if (raw) {
+                    const data = JSON.parse(raw);
+                    if (data && data.vehicleName) {
+                        document.getElementById('vehicleSummary').textContent =
+                          `Vehicle: ${data.vehicleName}. We'll match a package to it.`;
+                    }
+                }
+            } catch (e) {}
+        });
+    </script>
+</body>
+</html>
