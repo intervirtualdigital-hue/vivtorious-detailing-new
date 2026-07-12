@@ -1,0 +1,15 @@
+node_modules
+data
+db
+lib
+views
+server.js
+package-lock.json
+.railwayignore
+CHANGES_LOG.md
+DEPLOYMENT_SUMMARY.md
+DOMAIN_SETUP.md
+DNS_QUICK_REFERENCE.md
+.env
+.env.local
+.DS_Store

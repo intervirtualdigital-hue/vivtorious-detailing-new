@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= city.meta_title || ('Mobile Car Detailing in ' + city.city_name + ', FL | Victorious Mobile Detailing') %></title>
+<meta name="description" content="<%= city.meta_description %>">
+<meta name="author" content="Victorious Mobile Detailing">
+<link rel="canonical" href="<%= siteUrl %>/detailing/<%= city.slug %>">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="<%= siteUrl %>/detailing/<%= city.slug %>">
+<meta property="og:title" content="<%= city.meta_title || ('Mobile Car Detailing in ' + city.city_name + ', FL') %>">
+<meta property="og:description" content="<%= city.meta_description %>">
+<meta property="og:image" content="<%= siteUrl %>/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Victorious Mobile Detailing">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<%= city.meta_title || ('Mobile Car Detailing in ' + city.city_name + ', FL') %>">
+<meta name="twitter:description" content="<%= city.meta_description %>">
+<meta name="twitter:image" content="<%= siteUrl %>/images/og-image.png">
+
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Victorious Mobile Detailing — <%= city.city_name %>",
+  "image": "<%= siteUrl %>/images/logo.png",
+  "description": "<%= city.meta_description %>",
+  "url": "<%= siteUrl %>/detailing/<%= city.slug %>",
+  "telephone": "+16463713739",
+  "email": "hello@victoriousdetailing.com",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "<%= city.city_name %>",
+    "addressRegion": "FL",
+    "addressCountry": "US"
+  },
+  <% if (city.lat && city.lng) { %>
+  "geo": { "@type": "GeoCoordinates", "latitude": "<%= city.lat %>", "longitude": "<%= city.lng %>" },
+  <% } %>
+  "areaServed": { "@type": "City", "name": "<%= city.city_name %>" },
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "50" },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "07:00",
+    "closes": "14:00"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "<%= siteUrl %>/" },
+    { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": "<%= siteUrl %>/#service-areas" },
+    { "@type": "ListItem", "position": 3, "name": "<%= city.city_name %>", "item": "<%= siteUrl %>/detailing/<%= city.slug %>" }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #0E0A14; font-family: 'Montserrat', sans-serif; color: #ffffff; }
+</style>
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/css/victorious-ext.css">
+<meta name="theme-color" content="#0E0A14">
+
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1535358617612502');fbq('track','PageView');
+</script>
+
+<script src="/js/tracking.js"></script>
+<script src="/js/cookie-banner.js" defer></script>
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <a href="/" style="display:inline-block;">
+      <img src="/images/logo.png" alt="Victorious Mobile Detailing — Mobile Car Detailing in <%= city.city_name %>, FL" style="height:80px;width:auto;">
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="city-hero">
+    <div class="city-hero__subtitle"><%= city.county %> County · We come to you</div>
+    <h1><%= city.h1 || ('Mobile Car Detailing in ' + city.city_name + ', FL') %></h1>
+    <p class="city-hero__lead"><%= city.intro_copy %></p>
+  </div>
+
+  <div class="city-cta">
+    <h2>Get an Instant Quote for <%= city.city_name %></h2>
+    <p style="color:rgba(255,255,255,0.8);margin:0.5rem 0 1rem;">Takes less than a minute. Choose your vehicle, pick a package, and we'll show you the exact price before you book.</p>
+    <a href="/?city=<%= city.slug %>" class="btn-primary" onclick="VictoriousTrack && VictoriousTrack.event('city_cta_click', { city: '<%= city.slug %>' })">Start Your Quote</a>
+  </div>
+
+  <section class="city-section">
+    <h2>Why Victorious for <%= city.city_name %> drivers</h2>
+    <p><%= city.why_choose_copy %></p>
+  </section>
+
+  <section class="city-section">
+    <h2>Packages available in <%= city.city_name %></h2>
+    <p style="margin-bottom:0.5rem;">All packages below include mobile service — we bring water, power, and equipment to your location.</p>
+    <ul style="color:rgba(255,255,255,0.75);line-height:1.8;padding-left:1.25rem;">
+      <li><strong style="color:#fff;">Mini Detailing</strong> (~1.5 hrs) — interior vacuum, leather clean, foam wash, spray wax, windows.</li>
+      <li><strong style="color:#fff;">Premium Detailing</strong> (~2 hrs) — everything in Mini + shampoo extraction, steam cleaning, leather conditioning, trunk detail.</li>
+      <li><strong style="color:#fff;">Clay &amp; Ceramic Sealant</strong> (~2 hrs) — paint decontamination + 3-6 month ceramic protection.</li>
+      <li><strong style="color:#fff;">VIP Detailing</strong> (~3 hrs) — Premium + iron decon, engine bay detail, full ceramic sealant.</li>
+    </ul>
+    <div style="margin-top:1rem;">
+      <a href="/packages" class="btn-primary" style="background:#D4AF37;color:#0E0A14;display:inline-block;padding:0.8rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:700;">See all packages</a>
+    </div>
+  </section>
+
+  <% if (nearby.length) { %>
+  <section class="city-section">
+    <h2>Nearby service areas</h2>
+    <p>We also serve these neighboring communities — tap to see details.</p>
+    <div class="city-nearby">
+      <% nearby.forEach(function(n){ %>
+        <a href="/detailing/<%= n.slug %>"><%= n.city_name %></a>
+      <% }) %>
+    </div>
+  </section>
+  <% } %>
+
+  <section class="city-section" style="text-align:center;">
+    <h2>Call or book online</h2>
+    <p><a href="tel:+16463713739" style="color:#D4AF37;font-size:22px;font-weight:700;text-decoration:none;">(646) 371-3739</a></p>
+    <p style="font-size:14px;color:rgba(255,255,255,0.5);">Monday–Friday, 7 AM – 2 PM · Book at least 24 hours in advance</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2026 Victorious Mobile Detailing. All rights reserved.<br>
+  <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+</footer>
+
+<script>
+  if (window.VictoriousTrack) VictoriousTrack.event('city_page_view', { city: '<%= city.slug %>' });
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Overview | Victorious Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/css/victorious-ext.css">
+<link rel="icon" type="image/png" href="/images/logo.png">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="admin-body">
+<%- include('_topbar', { active: 'overview', adminUser }) %>
+<main class="admin-main">
+  <h1 class="admin-h1">Overview</h1>
+  <p class="admin-sub">Traffic, quiz activity, and bookings across your site.</p>
+
+  <div class="admin-cards">
+    <div class="admin-card">
+      <div class="admin-card__label">Visits (30d)</div>
+      <div class="admin-card__value"><%= metrics.visits.d30.toLocaleString() %></div>
+      <div class="admin-card__breakdown">
+        <div>Today <span><%= metrics.visits.d1 %></span></div>
+        <div>7d <span><%= metrics.visits.d7 %></span></div>
+      </div>
+    </div>
+    <div class="admin-card">
+      <div class="admin-card__label">Quiz Starts (30d)</div>
+      <div class="admin-card__value"><%= metrics.quizStarts.d30.toLocaleString() %></div>
+      <div class="admin-card__breakdown">
+        <div>Today <span><%= metrics.quizStarts.d1 %></span></div>
+        <div>7d <span><%= metrics.quizStarts.d7 %></span></div>
+      </div>
+    </div>
+    <div class="admin-card">
+      <div class="admin-card__label">Package Selected (30d)</div>
+      <div class="admin-card__value"><%= metrics.packageSelects.d30.toLocaleString() %></div>
+      <div class="admin-card__breakdown">
+        <div>Today <span><%= metrics.packageSelects.d1 %></span></div>
+        <div>7d <span><%= metrics.packageSelects.d7 %></span></div>
+      </div>
+    </div>
+    <div class="admin-card">
+      <div class="admin-card__label">Bookings (30d)</div>
+      <div class="admin-card__value"><%= metrics.bookings.d30.toLocaleString() %></div>
+      <div class="admin-card__breakdown">
+        <div>Today <span><%= metrics.bookings.d1 %></span></div>
+        <div>7d <span><%= metrics.bookings.d7 %></span></div>
+      </div>
+    </div>
+    <div class="admin-card">
+      <div class="admin-card__label">Conversion (30d)</div>
+      <div class="admin-card__value"><%= conversionRate %>%</div>
+      <div class="admin-card__breakdown">Bookings / Visits</div>
+    </div>
+  </div>
+
+  <section class="admin-section">
+    <h2 class="admin-section__title">Visits — last 30 days</h2>
+    <canvas id="sparkChart" height="80"></canvas>
+  </section>
+
+  <section class="admin-section">
+    <h2 class="admin-section__title">Quick links</h2>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <a href="/admin/pricing" class="admin-btn admin-btn--ghost admin-btn--small">Edit prices</a>
+      <a href="/admin/cities" class="admin-btn admin-btn--ghost admin-btn--small">Edit city pages</a>
+      <a href="/admin/events" class="admin-btn admin-btn--ghost admin-btn--small">Raw events log</a>
+      <a href="/admin/events.csv" class="admin-btn admin-btn--ghost admin-btn--small">Download CSV</a>
+    </div>
+  </section>
+</main>
+<script>
+  const spark = <%- JSON.stringify(sparkline) %>;
+  const ctx = document.getElementById('sparkChart');
+  if (ctx && spark.length) {
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: spark.map(r => r.day.slice(5)),
+        datasets: [{
+          data: spark.map(r => r.n),
+          borderColor: '#D4AF37',
+          backgroundColor: 'rgba(57,255,20,0.1)',
+          tension: 0.3,
+          fill: true,
+          pointRadius: 2,
+          pointBackgroundColor: '#D4AF37'
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.5)' } },
+          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.5)', stepSize: 1 } }
+        }
+      }
+    });
+  }
+</script>
+</body>
+</html>

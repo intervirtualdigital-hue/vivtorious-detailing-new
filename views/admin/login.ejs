@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin Login | Victorious Mobile Detailing</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/css/victorious-ext.css">
+<link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+<body class="admin-body">
+<div class="admin-login-wrap">
+  <form class="admin-login-card" method="POST" action="/admin/login" autocomplete="off">
+    <img src="/images/logo.png" alt="Victorious" style="height:60px;margin-bottom:1rem;">
+    <h1 class="admin-login-card__title">Admin Sign In</h1>
+    <p class="admin-login-card__sub">Dashboard access for Victorious Mobile Detailing</p>
+    <input class="admin-input" type="password" name="password" placeholder="Admin password" required autofocus autocomplete="current-password">
+    <button class="admin-btn" type="submit">Sign In</button>
+    <% if (error) { %><div class="admin-login-error"><%= error %></div><% } %>
+  </form>
+</div>
+</body>
+</html>

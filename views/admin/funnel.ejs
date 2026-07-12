@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Funnel | Victorious Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/css/victorious-ext.css">
+<link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+<body class="admin-body">
+<%- include('_topbar', { active: 'funnel', adminUser }) %>
+<main class="admin-main">
+  <h1 class="admin-h1">Conversion Funnel</h1>
+  <p class="admin-sub">Unique sessions reaching each step. Drop-off % compares back to the top of the funnel.</p>
+
+  <div class="admin-chips">
+    <a href="/admin/funnel?days=1"  class="<%= days==='1'?'active':'' %>">Today</a>
+    <a href="/admin/funnel?days=7"  class="<%= days==='7'?'active':'' %>">7 days</a>
+    <a href="/admin/funnel?days=30" class="<%= days==='30'?'active':'' %>">30 days</a>
+    <a href="/admin/funnel?days=90" class="<%= days==='90'?'active':'' %>">90 days</a>
+    <a href="/admin/funnel?days=all" class="<%= days==='all'?'active':'' %>">All</a>
+  </div>
+
+  <section class="admin-section">
+    <% const top = funnel[0].value || 1; %>
+    <% funnel.forEach(function(step, i) {
+         const pct = top === 0 ? 0 : Math.round((step.value / top) * 1000) / 10;
+         const prev = i > 0 ? funnel[i-1].value : null;
+         const drop = prev !== null ? (prev === 0 ? 0 : Math.round((1 - step.value/prev) * 1000) / 10) : null;
+    %>
+      <div class="admin-funnel-row">
+        <div>
+          <div style="font-weight:600;"><%= step.name %></div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.5);"><%= pct %>% of top</div>
+        </div>
+        <div class="admin-funnel-bar">
+          <div class="admin-funnel-bar__fill" style="width: <%= pct %>%;"></div>
+        </div>
+        <div style="text-align:right;font-weight:700;font-size:20px;"><%= step.value.toLocaleString() %></div>
+        <div style="text-align:right;">
+          <% if (drop !== null) { %>
+            <span class="admin-funnel-drop">-<%= drop %>%</span>
+          <% } %>
+        </div>
+      </div>
+    <% }) %>
+  </section>
+
+  <section class="admin-section">
+    <h2 class="admin-section__title">Interpretation</h2>
+    <ul style="color:rgba(255,255,255,0.7);line-height:1.8;">
+      <li><strong>Big drop Home → Vehicle Selected:</strong> traffic isn't engaging the quiz. Check hero clarity / page load speed.</li>
+      <li><strong>Big drop Package Selected → Booking Widget:</strong> prices feel high relative to offer. Review the pricing grid.</li>
+      <li><strong>Big drop Booking Widget → Completed:</strong> scheduler friction (no time slots, confusing UI). Check GoHighLevel calendar hours.</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

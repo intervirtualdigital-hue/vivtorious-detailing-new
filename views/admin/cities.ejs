@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Cities | Victorious Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/css/victorious-ext.css">
+<link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+<body class="admin-body">
+<%- include('_topbar', { active: 'cities', adminUser }) %>
+<main class="admin-main">
+  <h1 class="admin-h1">City Landing Pages</h1>
+  <p class="admin-sub">Each page targets a single city for local SEO. Toggle inactive to unpublish without deleting content.</p>
+
+  <% cities.forEach(function(c) { %>
+    <section class="admin-section" data-slug="<%= c.slug %>">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;gap:1rem;flex-wrap:wrap;">
+        <div>
+          <h2 class="admin-section__title" style="margin:0 0 0.25rem;"><%= c.city_name %>, FL</h2>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);">
+            <%= c.county %> County · <a href="/detailing/<%= c.slug %>" target="_blank" style="color:#D4AF37;">/detailing/<%= c.slug %> ↗</a>
+          </div>
+        </div>
+        <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
+          <input type="checkbox" class="toggle-active" <%= c.active ? 'checked' : '' %>>
+          <span class="admin-badge<%= c.active ? '' : ' admin-badge--gray' %>"><%= c.active ? 'Active' : 'Hidden' %></span>
+        </label>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <label style="display:flex;flex-direction:column;gap:0.35rem;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.55);">Meta Title</span>
+          <input class="admin-input field" data-field="meta_title" value="<%= c.meta_title || '' %>">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:0.35rem;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.55);">H1 Headline</span>
+          <input class="admin-input field" data-field="h1" value="<%= c.h1 || '' %>">
+        </label>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:0.35rem;margin-top:0.75rem;">
+        <span style="font-size:12px;color:rgba(255,255,255,0.55);">Meta Description (140-160 chars recommended)</span>
+        <input class="admin-input field" data-field="meta_description" value="<%= c.meta_description || '' %>">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:0.35rem;margin-top:0.75rem;">
+        <span style="font-size:12px;color:rgba(255,255,255,0.55);">Intro paragraph</span>
+        <textarea class="admin-textarea field" data-field="intro_copy"><%= c.intro_copy || '' %></textarea>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:0.35rem;margin-top:0.75rem;">
+        <span style="font-size:12px;color:rgba(255,255,255,0.55);">Why choose us paragraph</span>
+        <textarea class="admin-textarea field" data-field="why_choose_copy"><%= c.why_choose_copy || '' %></textarea>
+      </label>
+      <div style="margin-top:1rem;text-align:right;">
+        <span class="save-status" style="font-size:12px;color:#D4AF37;opacity:0;transition:opacity 0.3s;">Saved ✓</span>
+        <button class="admin-btn save-btn" style="margin-left:0.75rem;">Save changes</button>
+      </div>
+    </section>
+  <% }) %>
+</main>
+<script>
+document.querySelectorAll('section[data-slug]').forEach(function(sec) {
+  const slug = sec.getAttribute('data-slug');
+  const statusEl = sec.querySelector('.save-status');
+  async function save(payload) {
+    try {
+      const res = await fetch('/api/admin/cities/' + slug, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        statusEl.style.opacity = '1';
+        setTimeout(function(){ statusEl.style.opacity = '0'; }, 1500);
+      } else {
+        alert('Save failed');
+      }
+    } catch (e) { alert('Save failed: ' + e.message); }
+  }
+  sec.querySelector('.toggle-active').addEventListener('change', function(e) {
+    save({ active: e.target.checked });
+  });
+  sec.querySelector('.save-btn').addEventListener('click', function() {
+    const payload = {};
+    sec.querySelectorAll('.field').forEach(function(f) {
+      payload[f.getAttribute('data-field')] = f.value;
+    });
+    save(payload);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<header class="admin-topbar">
+  <div class="admin-topbar__brand">
+    <span class="admin-topbar__brand-dot"></span>
+    Victorious Admin
+  </div>
+  <nav class="admin-topbar__nav">
+    <a class="admin-topbar__link<%= active==='overview'?' admin-topbar__link--active':'' %>" href="/admin">Overview</a>
+    <a class="admin-topbar__link<%= active==='funnel'?' admin-topbar__link--active':'' %>" href="/admin/funnel">Funnel</a>
+    <a class="admin-topbar__link<%= active==='events'?' admin-topbar__link--active':'' %>" href="/admin/events">Events</a>
+    <a class="admin-topbar__link<%= active==='pricing'?' admin-topbar__link--active':'' %>" href="/admin/pricing">Pricing</a>
+    <a class="admin-topbar__link<%= active==='cities'?' admin-topbar__link--active':'' %>" href="/admin/cities">Cities</a>
+  </nav>
+  <div class="admin-topbar__user">
+    <%= adminUser %>
+    <form method="POST" action="/admin/logout"><button type="submit">Logout</button></form>
+  </div>
+</header>

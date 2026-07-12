@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Events | Victorious Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/css/victorious-ext.css">
+<link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+<body class="admin-body">
+<%- include('_topbar', { active: 'events', adminUser }) %>
+<main class="admin-main">
+  <h1 class="admin-h1">Raw Events</h1>
+  <p class="admin-sub">Every page visit, quiz step, and booking event. <a href="/admin/events.csv" style="color:#D4AF37;">Export full CSV →</a></p>
+
+  <div class="admin-chips">
+    <a href="/admin/events" class="<%= !filterType?'active':'' %>">All</a>
+    <% typeCounts.forEach(function(t){ %>
+      <a href="/admin/events?type=<%= encodeURIComponent(t.type) %>" class="<%= filterType===t.type?'active':'' %>">
+        <%= t.type %> (<%= t.n %>)
+      </a>
+    <% }) %>
+  </div>
+
+  <section class="admin-section">
+    <div class="admin-table__wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Type</th>
+          <th>Page</th>
+          <th>Vehicle</th>
+          <th>Package</th>
+          <th>Price</th>
+          <th>City</th>
+          <th>Session</th>
+          <th>UTM src</th>
+          <th>Consent</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% events.forEach(function(e) { %>
+        <tr>
+          <td><%= e.ts ? e.ts.replace('T',' ').slice(0, 19) : '' %></td>
+          <td><span class="admin-badge<%= ['booking_complete','vehicle_select','package_select'].includes(e.type) ? '' : ' admin-badge--gray' %>"><%= e.type %></span></td>
+          <td><%= e.page || '' %></td>
+          <td><%= e.vehicle_type || '' %></td>
+          <td><%= e.package_name || '' %></td>
+          <td><%= e.price_total ? '$'+e.price_total : '' %></td>
+          <td><%= e.city || '' %></td>
+          <td style="font-family:monospace;font-size:11px;color:rgba(255,255,255,0.45);"><%= (e.session_id||'').slice(0,8) %></td>
+          <td><%= e.utm_source || '' %></td>
+          <td><%= e.consent || '' %></td>
+        </tr>
+      <% }) %>
+      <% if (!events.length) { %>
+        <tr><td colspan="10" style="text-align:center;padding:2rem;color:rgba(255,255,255,0.5);">No events yet. Visit the site to generate data.</td></tr>
+      <% } %>
+      </tbody>
+    </table>
+    </div>
+  </section>
+</main>
+</body>
+</html>

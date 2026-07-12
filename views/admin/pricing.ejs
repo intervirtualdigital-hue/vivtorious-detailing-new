@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Pricing | Victorious Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/css/victorious-ext.css">
+<link rel="icon" type="image/png" href="/images/logo.png">
+</head>
+<body class="admin-body">
+<%- include('_topbar', { active: 'pricing', adminUser }) %>
+<main class="admin-main">
+  <h1 class="admin-h1">Pricing Editor</h1>
+  <p class="admin-sub">Changes save automatically when you click away from a field. The new price is live on the site within 1 minute.</p>
+
+  <%
+    const packages = [...new Set(rows.map(r=>r.package_key))];
+    const vehicles = [...new Set(rows.map(r=>r.vehicle_key))];
+    const vehicleLabels = {
+      'coupe-car': 'Sedan / Coupe',
+      'medium-suv': 'Medium SUV',
+      'large-suv-truck': 'Large SUV / Truck',
+      'lifted-truck': 'Lifted Truck'
+    };
+    const packageLabels = {
+      'mini': 'Mini Detailing',
+      'premium': 'Premium Detailing',
+      'ceramic': 'Clay & Ceramic',
+      'vip': 'VIP Detailing'
+    };
+    const cell = (pkg, v) => rows.find(r => r.package_key === pkg && r.vehicle_key === v);
+  %>
+
+  <section class="admin-section">
+    <div class="admin-table__wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Package</th>
+            <% vehicles.forEach(function(v){ %>
+              <th style="text-align:center;"><%= vehicleLabels[v] || v %></th>
+            <% }) %>
+          </tr>
+        </thead>
+        <tbody>
+        <% packages.forEach(function(pkg){ %>
+          <tr>
+            <td><strong><%= packageLabels[pkg] || pkg %></strong></td>
+            <% vehicles.forEach(function(v){
+               const c = cell(pkg, v);
+               if (!c) { %><td></td><% return; } %>
+              <td style="text-align:center;">
+                <div style="display:flex;flex-direction:column;gap:0.3rem;align-items:center;">
+                  <div style="font-size:11px;color:rgba(255,255,255,0.5);">SALE PRICE</div>
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <span style="color:rgba(255,255,255,0.5);">$</span>
+                    <input class="admin-input admin-input--price" type="number" min="0" max="10000" step="5"
+                      value="<%= c.current_price %>"
+                      data-pkg="<%= c.package_key %>"
+                      data-veh="<%= c.vehicle_key %>"
+                      data-field="current_price">
+                  </div>
+                  <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:0.25rem;">"REGULAR" PRICE</div>
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <span style="color:rgba(255,255,255,0.5);">$</span>
+                    <input class="admin-input admin-input--price" type="number" min="0" max="10000" step="5"
+                      value="<%= c.regular_price %>"
+                      data-pkg="<%= c.package_key %>"
+                      data-veh="<%= c.vehicle_key %>"
+                      data-field="regular_price">
+                  </div>
+                  <div class="admin-pricing-cell__saved" data-saved-for="<%= c.package_key %>__<%= c.vehicle_key %>">Saved ✓</div>
+                </div>
+              </td>
+            <% }) %>
+          </tr>
+        <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="admin-section">
+    <h2 class="admin-section__title">Recent price changes</h2>
+    <div class="admin-table__wrap">
+    <table class="admin-table">
+      <thead>
+        <tr><th>When</th><th>Package</th><th>Vehicle</th><th>Sale</th><th>Regular</th><th>By</th></tr>
+      </thead>
+      <tbody>
+      <% history.forEach(function(h) { %>
+        <tr>
+          <td><%= h.changed_at ? h.changed_at.replace('T',' ').slice(0,16) : '' %></td>
+          <td><%= h.package_key %></td>
+          <td><%= h.vehicle_key %></td>
+          <td>$<%= h.old_current_price %> → <strong>$<%= h.new_current_price %></strong></td>
+          <td>$<%= h.old_regular_price %> → <strong>$<%= h.new_regular_price %></strong></td>
+          <td><%= h.changed_by %></td>
+        </tr>
+      <% }) %>
+      <% if (!history.length) { %>
+        <tr><td colspan="6" style="text-align:center;padding:1.5rem;color:rgba(255,255,255,0.5);">No changes yet.</td></tr>
+      <% } %>
+      </tbody>
+    </table>
+    </div>
+  </section>
+</main>
+<script>
+document.querySelectorAll('.admin-input--price').forEach(function(input) {
+  input.addEventListener('blur', async function() {
+    const pkg = input.getAttribute('data-pkg');
+    const veh = input.getAttribute('data-veh');
+    const row = input.closest('td');
+    const current = row.querySelector('[data-field="current_price"]').value;
+    const regular = row.querySelector('[data-field="regular_price"]').value;
+    const savedEl = document.querySelector('[data-saved-for="'+pkg+'__'+veh+'"]');
+    try {
+      const res = await fetch('/api/admin/pricing', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ package_key: pkg, vehicle_key: veh, current_price: current, regular_price: regular })
+      });
+      if (res.ok) {
+        savedEl.classList.add('admin-pricing-cell__saved--visible');
+        setTimeout(function(){ savedEl.classList.remove('admin-pricing-cell__saved--visible'); }, 1800);
+      } else {
+        alert('Save failed: ' + (await res.text()));
+      }
+    } catch (e) {
+      alert('Save failed: ' + e.message);
+    }
+  });
+});
+</script>
+</body>
+</html>
