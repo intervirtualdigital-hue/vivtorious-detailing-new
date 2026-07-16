@@ -68,5 +68,49 @@
             <a href="/terms">Terms</a>
         </p>
     </footer>
+
+    <script>
+        (function() {
+            var GHL_DOMAINS = ['leadconnectorhq.com', 'msgsndr.com'];
+
+            function isFromGHL(origin) {
+                try {
+                    var host = new URL(origin).hostname;
+                    return GHL_DOMAINS.some(function(d) { return host === d || host.endsWith('.' + d); });
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            window.addEventListener('message', function(event) {
+                if (!isFromGHL(event.origin)) return;
+
+                var data = event.data;
+                // The iframe-resizer protocol sends plain strings (e.g. "___id:height:width:type");
+                // only structured object messages come from the booking widget itself.
+                if (typeof data !== 'object' || data === null) return;
+
+                try {
+                    var kind = String(data.type || data.event || data.action || 'message').slice(0, 50);
+                    if (window.VictoriousTrack) {
+                        window.VictoriousTrack.event('widget_' + kind);
+                    }
+                } catch (error) {
+                    console.error('Error tracking booking widget message:', error);
+                }
+
+                try {
+                    var payloadStr = JSON.stringify(data).toLowerCase();
+                    var looksBooked = /book|appointment|schedul/.test(payloadStr) &&
+                                       /success|complete|confirm/.test(payloadStr);
+                    if (looksBooked && window.VictoriousTrack) {
+                        window.VictoriousTrack.event('booking_complete');
+                    }
+                } catch (error) {
+                    console.error('Error detecting booking completion:', error);
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
