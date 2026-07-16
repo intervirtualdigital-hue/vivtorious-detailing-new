@@ -44,25 +44,25 @@
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
-                <article class="service-block">
+                <article class="service-block" data-package="mini" role="button" tabindex="0" style="cursor: pointer;">
                     <div class="service-icon">🛡️</div>
                     <h3>Mini</h3>
                     <p style="color: rgba(244, 241, 250, 0.7); font-size: 14.5px;">Maintenance-grade interior and exterior detail. Perfect between deep cleans.</p>
                     <p style="color: #D4AF37; font-weight: 700; margin-top: 0.75rem; font-family: 'Cinzel', serif;">Pricing soon</p>
                 </article>
-                <article class="service-block">
+                <article class="service-block" data-package="premium" role="button" tabindex="0" style="cursor: pointer;">
                     <div class="service-icon">⚔️</div>
                     <h3>Premium</h3>
                     <p style="color: rgba(244, 241, 250, 0.7); font-size: 14.5px;">Deep clean, steam, leather conditioning, and full exterior decon. Our most-booked.</p>
                     <p style="color: #D4AF37; font-weight: 700; margin-top: 0.75rem; font-family: 'Cinzel', serif;">Pricing soon</p>
                 </article>
-                <article class="service-block">
+                <article class="service-block" data-package="clay-ceramic" role="button" tabindex="0" style="cursor: pointer;">
                     <div class="service-icon">💎</div>
                     <h3>Clay &amp; Ceramic</h3>
                     <p style="color: rgba(244, 241, 250, 0.7); font-size: 14.5px;">Iron decon, clay treatment, and ceramic-grade sealant for long-haul protection.</p>
                     <p style="color: #D4AF37; font-weight: 700; margin-top: 0.75rem; font-family: 'Cinzel', serif;">Pricing soon</p>
                 </article>
-                <article class="service-block" style="border-color: rgba(212, 175, 55, 0.55);">
+                <article class="service-block" data-package="vip" role="button" tabindex="0" style="cursor: pointer; border-color: rgba(212, 175, 55, 0.55);">
                     <div class="service-icon">👑</div>
                     <h3>VIP</h3>
                     <p style="color: rgba(244, 241, 250, 0.7); font-size: 14.5px;">The full Victorious experience. Multi-stage paint correction, ceramic, and white-glove interior.</p>
@@ -92,5 +92,48 @@
             <a href="/terms">Terms</a>
         </p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const packageCards = document.querySelectorAll('.service-block[data-package]');
+
+            packageCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const packageName = this.dataset.package;
+                    const packageNameEl = this.querySelector('h3');
+                    const packageLabel = packageNameEl ? packageNameEl.textContent : 'Unknown';
+
+                    this.style.transform = 'scale(0.97)';
+
+                    try {
+                        localStorage.setItem('victoriousPackage', JSON.stringify({
+                            packageName: packageName,
+                            packageLabel: packageLabel,
+                            timestamp: Date.now()
+                        }));
+                    } catch (error) {
+                        console.error('Error saving package selection:', error);
+                    }
+
+                    try {
+                        if (window.VictoriousTrack) {
+                            window.VictoriousTrack.event('package_select', { packageName: packageName });
+                        }
+                    } catch (error) {
+                        console.error('Error tracking package selection:', error);
+                    }
+
+                    setTimeout(() => { window.location.href = '/booking'; }, 200);
+                });
+
+                card.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
