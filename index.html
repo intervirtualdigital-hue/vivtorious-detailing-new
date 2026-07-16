@@ -390,28 +390,32 @@
 
             vehicleCards.forEach(card => {
                 card.addEventListener('click', function() {
+                    const vehicleType = this.dataset.vehicle;
+                    const vehicleNameEl = this.querySelector('.vehicle-name');
+                    const vehicleName = vehicleNameEl ? vehicleNameEl.textContent : 'Unknown';
+
+                    this.style.transform = 'scale(0.95)';
+
                     try {
-                        const vehicleType = this.dataset.vehicle;
-                        const vehicleNameEl = this.querySelector('.vehicle-name');
-                        const vehicleName = vehicleNameEl ? vehicleNameEl.textContent : 'Unknown';
-
-                        this.style.transform = 'scale(0.95)';
-
                         const vehicleData = {
                             vehicleType: vehicleType,
                             vehicleName: vehicleName,
                             timestamp: Date.now()
                         };
                         localStorage.setItem('victoriousQuiz', JSON.stringify(vehicleData));
+                    } catch (error) {
+                        console.error('Error saving quiz selection:', error);
+                    }
 
+                    try {
                         if (window.VictoriousTrack) {
                             window.VictoriousTrack.event('vehicle_select', { vehicleType: vehicleType });
                         }
-
-                        setTimeout(() => { window.location.href = '/packages'; }, 200);
                     } catch (error) {
-                        console.error('Error handling vehicle selection:', error);
+                        console.error('Error tracking vehicle selection:', error);
                     }
+
+                    setTimeout(() => { window.location.href = '/packages'; }, 200);
                 });
 
                 card.addEventListener('keypress', function(e) {
